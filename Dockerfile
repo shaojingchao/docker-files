@@ -1,6 +1,11 @@
-FROM node:20-bookworm
-
-RUN npx -y playwright@1.41.1 install --with-deps
-RUN corepack enable && corepack prepare pnpm@latest-8 --activate
-
+FROM node:20-slim
+USER node
+WORKDIR /app
+USER root
+RUN apt update
+RUN apt install -y libvips libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev libnss3 libxkbcommon0 libgtk-3-0 libgbm1 libasound2 chromium
+USER node
+RUN corepack enable
+RUN corepack prepare pnpm@latest-8 --activate
+RUN pnpm config set store-dir /cache/.pnpm-store
 CMD ["node"]
