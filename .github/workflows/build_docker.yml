@@ -2,7 +2,7 @@ name: build_docker
 
 on:
   push:
-    branches: [master]
+    branches: [node20-pnpm9-dind]
   release:
     types: [created] # 表示在创建新的 Release 时触发
 
@@ -23,18 +23,15 @@ jobs:
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      - name: Login to DockerHub
+      - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push
-        id: docker_build
         uses: docker/build-push-action@v4
         with:
-          context: .
           push: true
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: node20-pnpm9-dind:latest
           platforms: linux/amd64
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/node20-pnpm9-dind:${{ github.ref_name }}
