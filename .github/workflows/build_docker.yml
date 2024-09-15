@@ -33,5 +33,9 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: node20-pnpm9-dind:latest
           platforms: linux/amd64
+          tags: |
+            user/app:latest
+            user/app:1.0.0
+            ghcr.io/shaojc/node20-pnpm9-dind:latest
+            ghcr.io/shaojc//node20-pnpm9-dind:1.0.0
