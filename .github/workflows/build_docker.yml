@@ -35,5 +35,5 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: |
-            ghcr.io/shaojc/node20-pnpm9-dind:latest
-            ghcr.io/shaojc/node20-pnpm9-dind:1.0.0
+            ghcr.io/shaojingchao/node20-pnpm9-dind:latest
+            ghcr.io/shaojingchao/node20-pnpm9-dind:1.0.0
