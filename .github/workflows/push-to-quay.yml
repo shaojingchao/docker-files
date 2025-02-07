@@ -1,0 +1,30 @@
+name: Push to Quay.io
+
+on:
+  workflow_dispatch:  # 允许手动触发
+  schedule:
+    - cron: '0 0 * * *'  # 每天 UTC 00:00 运行
+
+jobs:
+  push-to-quay:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to Quay.io
+        uses: docker/login-action@v3
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
+
+      - name: Login to ghcr.io
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull and push image
+        run: |
+          docker pull ghcr.io/danny-avila/librechat-rag-api-dev-lite:latest
+          docker tag ghcr.io/danny-avila/librechat-rag-api-dev-lite:latest quay.io/${{ secrets.QUAY_USERNAME }}/librechat-rag-api-dev-lite:latest
+          docker push quay.io/${{ secrets.QUAY_USERNAME }}/librechat-rag-api-dev-lite:latest
