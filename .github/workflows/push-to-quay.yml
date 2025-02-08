@@ -28,3 +28,6 @@ jobs:
           docker pull ghcr.io/danny-avila/librechat-rag-api-dev-lite:latest
           docker tag ghcr.io/danny-avila/librechat-rag-api-dev-lite:latest quay.io/${{ secrets.QUAY_USERNAME }}/librechat-rag-api-dev-lite:latest
           docker push quay.io/${{ secrets.QUAY_USERNAME }}/librechat-rag-api-dev-lite:latest
+          docker pull ghcr.io/danny-avila/librechat-rag-api-dev:latest
+          docker tag ghcr.io/danny-avila/librechat-rag-api-dev:latest quay.io/${{ secrets.QUAY_USERNAME }}/librechat-rag-api-dev:latest
+          docker push quay.io/${{ secrets.QUAY_USERNAME }}/librechat-rag-api-dev:latest
