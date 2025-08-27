@@ -2,9 +2,8 @@ name: build_docker
 
 on:
   push:
-    branches: [master]
-  release:
-    types: [created] # 表示在创建新的 Release 时触发
+    tags:
+      - '*'  # 表示在推送任意标签时触发
 
 jobs:
   build_docker:
@@ -37,4 +36,5 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/node:18-pnpm8${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/node-runner:${{ github.ref_name }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/node-runner:latest
