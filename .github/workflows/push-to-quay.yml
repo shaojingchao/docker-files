@@ -1,9 +1,9 @@
 name: Push to Quay.io
 
 on:
-  workflow_dispatch:  # 允许手动触发
-  schedule:
-    - cron: '0 0 * * *'  # 每天 UTC 00:00 运行
+  push:
+    branches:
+      - 'push-to-quay'
 
 jobs:
   push-to-quay:
@@ -25,9 +25,6 @@ jobs:
 
       - name: Pull and push image
         run: |
-          docker pull ghcr.io/danny-avila/librechat-rag-api-dev-lite:latest
-          docker tag ghcr.io/danny-avila/librechat-rag-api-dev-lite:latest quay.io/${{ secrets.QUAY_USERNAME }}/librechat-rag-api-dev-lite:latest
-          docker push quay.io/${{ secrets.QUAY_USERNAME }}/librechat-rag-api-dev-lite:latest
-          docker pull ghcr.io/danny-avila/librechat-rag-api-dev:latest
-          docker tag ghcr.io/danny-avila/librechat-rag-api-dev:latest quay.io/${{ secrets.QUAY_USERNAME }}/librechat-rag-api-dev:latest
-          docker push quay.io/${{ secrets.QUAY_USERNAME }}/librechat-rag-api-dev:latest
+          docker pull 1247537710/node-runner:latest
+          docker tag 1247537710/node-runner:latest quay.io/${{ secrets.QUAY_USERNAME }}/node-runner:latest
+          docker push quay.io/${{ secrets.QUAY_USERNAME }}/node-runner:latest
